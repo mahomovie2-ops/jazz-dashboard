@@ -144,7 +144,7 @@
 
     <section>
         <h2><span>03.</span> DREAM INSTRUMENTS</h2>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">「もしビッグバンドに入るなら？」注目の人気パート！</p>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">注目の人気パート！</p>
         <div class="chart-container">
             <div id="instLoading" class="loading">集計中...</div>
             <canvas id="instrumentsChart" style="display:none;"></canvas>
@@ -158,3 +158,114 @@
                 <div class="comment-quote">「自分はクラシックが専門なので、ビッグバンドだと普段どんなことを意識してアンサンブルしているのか気になります！」</div>
                 <div class="comment-meta">— 吹奏楽・クラシック出身の方より</div>
             </div>
+            <div class="comment-card">
+                <div class="comment-quote">「今夜はから騒ぎ／東京事変 バンドでやるとオシャレ」「椎名林檎の曲！」</div>
+                <div class="comment-meta">— ロック・ポップス好きの方より</div>
+            </div>
+            <div class="comment-card">
+                <div class="comment-quote">「The gathering sky（パット・メセニー）」「宝島」「八木澤教司さんのさくらのうた」</div>
+                <div class="comment-meta">— 皆さんの思い出の曲たち</div>
+            </div>
+            <div class="comment-card">
+                <div class="comment-quote">「ライブ感が最高、生音で聴きながら飲むお酒、そしてJAZZがいい」「ベースの早弾きや鍵盤、ドラムのソロが楽しみ！」</div>
+                <div class="comment-meta">— ライブへの期待の声！</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2><span>05.</span> ARTISTS</h2>
+        <div class="band-card">
+            <img src="bighollow.JPG" alt="Big Hollow Band" class="band-image">
+            <div class="band-content">
+                <h3 class="band-name">Big Hollow Band</h3>
+                <div class="sns-buttons">
+                    <a href="https://www.instagram.com/big.hollow.band" target="_blank" class="sns-btn sns-insta">Instagram</a>
+                    <a href="https://x.com/kubo_ban1210" target="_blank" class="sns-btn sns-x">X</a>
+                    <a href="https://youtube.com/@kuboban-en6hw" target="_blank" class="sns-btn sns-yt">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="band-card">
+            <img src="eagle.JPG" alt="Eagle Jazztech" class="band-image">
+            <div class="band-content">
+                <h3 class="band-name">Eagle Jazztech Orchestra</h3>
+                <div class="sns-buttons">
+                    <a href="https://www.instagram.com/eagle_jazztech" target="_blank" class="sns-btn sns-insta">Instagram</a>
+                    <a href="https://x.com/eagle_jazztech" target="_blank" class="sns-btn sns-x">X</a>
+                    <a href="https://youtube.com/@eaglejazztechorchestra" target="_blank" class="sns-btn sns-yt">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="band-card">
+            <img src="platanus.JPG" alt="Platanus Jazz" class="band-image">
+            <div class="band-content">
+                <h3 class="band-name">Platanus Jazz Orchestra</h3>
+                <div class="sns-buttons">
+                    <a href="https://www.instagram.com/platanusjazz" target="_blank" class="sns-btn sns-insta">Instagram</a>
+                    <a href="https://x.com/platanusjazz" target="_blank" class="sns-btn sns-x">X</a>
+                    <a href="https://youtube.com/@platanusjazzorchestra" target="_blank" class="sns-btn sns-yt">YouTube</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    Chart.defaults.color = '#a0a0a0';
+    const SHEET_ID = '15XGG51-_dWPAYvJjmBOEF1uWkHFgvATQBhREr8dN4-M';
+    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
+
+    window.onload = function() {
+        Papa.parse(CSV_URL, {
+            download: true,
+            header: true,
+            complete: function(results) { drawCharts(results.data); }
+        });
+    };
+
+    function drawCharts(data) {
+        const rootsCount = {};
+        const instCount = {};
+        const loveCount = { '迫力・生音': 0, 'アンサンブル': 0, 'ソロ演奏': 0, 'スウィング感': 0, '一体感': 0 };
+
+        data.forEach(row => {
+            const r = row['あなたの「音楽のルーツ」を教えてください（複数選択可）'] || "";
+            r.split(',').forEach(i => { if(i.trim()) rootsCount[i.trim()] = (rootsCount[i.trim()] || 0) + 1; });
+            const ins = row['「もし自分がビッグバンドに入るなら」どの楽器をやってみたいですか？'] || "";
+            ins.split(',').forEach(i => { if(i.trim()) instCount[i.trim()] = (instCount[i.trim()] || 0) + 1; });
+            const l = row['ビッグバンドの「ここが好き！」を教えてください'] || "";
+            if(l.match(/音|迫力|圧/)) loveCount['迫力・生音']++;
+            if(l.match(/合わせ|ハーモニー|重ね/)) loveCount['アンサンブル']++;
+            if(l.match(/ソロ|個人/)) loveCount['ソロ演奏']++;
+            if(l.match(/リズム|乗り|スイング/)) loveCount['スウィング感']++;
+            if(l.match(/みんな|一体|全員/)) loveCount['一体感']++;
+        });
+
+        renderBar('loveChart', 'loveLoading', loveCount, '#06C755', true);
+        renderDoughnut('rootsChart', 'rootsLoading', rootsCount);
+        renderBar('instrumentsChart', 'instLoading', instCount, '#00e5ff', false);
+    }
+
+    function renderBar(id, loadId, counts, color, isHorizontal) {
+        document.getElementById(loadId).style.display = 'none';
+        document.getElementById(id).style.display = 'block';
+        new Chart(document.getElementById(id).getContext('2d'), {
+            type: 'bar',
+            data: { labels: Object.keys(counts), datasets: [{ data: Object.values(counts), backgroundColor: color, borderRadius: 4 }] },
+            options: { indexAxis: isHorizontal ? 'y' : 'x', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+    }
+
+    function renderDoughnut(id, loadId, counts) {
+        document.getElementById(loadId).style.display = 'none';
+        document.getElementById(id).style.display = 'block';
+        new Chart(document.getElementById(id).getContext('2d'), {
+            type: 'doughnut',
+            data: { labels: Object.keys(counts), datasets: [{ data: Object.values(counts), backgroundColor: ['#00e5ff', '#06C755', '#ff4081', '#ffd54f', '#9e9e9e'], borderWidth: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+        });
+    }
+</script>
+</body>
+</html>
