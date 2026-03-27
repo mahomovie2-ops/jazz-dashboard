@@ -30,9 +30,8 @@
         
         section { margin-bottom: 3.5rem; }
         h2 { font-family: 'Montserrat', 'Noto Sans JP', sans-serif; font-weight: 900; font-size: 1.4rem; margin-bottom: 1.2rem; padding-left: 10px; border-left: 5px solid var(--accent-pink); display: flex; align-items: center; gap: 10px; color: #444; }
-        h2 span { color: var(--text-muted); font-size: 1rem; }
 
-        .chart-container { background-color: var(--surface-color); border-radius: 20px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; border: 1px solid #f0f0f0; }
+        .chart-container { background-color: var(--surface-color); border-radius: 20px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
 
         /* 掲示板 */
         .comment-board { max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
@@ -59,8 +58,19 @@
         .sns-x { background-color: #000; }
         .sns-yt { background-color: #ff0000; }
 
-        .btn-green { display: inline-block; background-color: var(--line-green); color: #fff; text-decoration: none; font-weight: bold; padding: 16px 32px; border-radius: 40px; margin-top: 10px; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,176,76,0.2); }
-        .final-action { text-align: center; margin-top: 4rem; padding: 3rem 2rem; background-color: #fff; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
+        /* 1行に収めるためのヘッダー最適化 */
+        .one-line-header { 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            font-size: 1.15rem !important; /* スマホで1行に収める絶妙なサイズ */
+            letter-spacing: -0.5px;
+            margin: 0 !important;
+            padding: 0 5px;
+        }
+
+        .btn-green { display: inline-block; background-color: var(--line-green); color: #fff; text-decoration: none; font-weight: bold; padding: 16px 32px; border-radius: 40px; margin-top: 15px; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,176,76,0.2); }
+        .final-action { text-align: center; margin-top: 4rem; padding: 3rem 1rem; background-color: #fff; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
     </style>
 </head>
 <body>
@@ -74,8 +84,8 @@
 </header>
 
 <div class="container">
-    <div class="openchat-banner" style="background-color: #fff; border: 2.5px solid var(--line-green); border-radius: 15px; padding: 1.5rem; text-align: center; margin-bottom: 3.5rem;">
-        <h2 style="border:none; margin:0 0 10px 0; justify-content: center; color: var(--line-green);">💬 リアルタイム感想受付中！</h2>
+    <div class="openchat-banner" style="background-color: #fff; border: 2.5px solid var(--line-green); border-radius: 15px; padding: 1.5rem 10px; text-align: center; margin-bottom: 3.5rem;">
+        <h2 class="one-line-header" style="color: var(--line-green); border:none; justify-content: center;">💬 リアルタイム感想受付中！</h2>
         <a href="https://line.me/ti/g2/eIc6z7MIYRk6lqfQa8zi9nU2kkrW9miEbQDRUQ" target="_blank" class="btn-green">オープンチャットに参加する</a>
     </div>
 
@@ -99,7 +109,7 @@
     <section>
         <h2><span>03.</span> DREAM INSTRUMENTS</h2>
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom:15px;">「もし自分が入るなら？」注目の人気パート！</p>
-        <div class="chart-container">
+        <div class="chart-container" style="min-height: 280px;">
             <canvas id="instrumentsChart"></canvas>
         </div>
     </section>
@@ -177,8 +187,8 @@
     </section>
 
     <div class="final-action">
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 900; margin-bottom:10px;">本日はご来場ありがとうございます！</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px;">皆様の感想が今後の活動の糧となります。ぜひ一言お聞かせください！</p>
+        <h3 class="one-line-header" style="font-family: 'Montserrat', sans-serif; font-weight: 900; color: #222;">本日はご来場ありがとうございます！</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px; margin-bottom: 20px;">皆様の感想が今後の活動の糧となります。<br>ぜひ一言お聞かせください！</p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfN-IuFpDsh87771z5t5N59r9Ff5T9-A4g0pC_YQ3E6o_QeLw/viewform" target="_blank" class="btn-green">アンケートに回答する</a>
     </div>
 </div>
@@ -193,7 +203,7 @@
             download: true, header: true,
             complete: function(results) { 
                 const f = results.meta.fields;
-                // K列(10): 魅力 / H列(7): 経験 掲示板表示
+                // K列(10): 魅力 / H列(7): 経験
                 renderB(results.data, f[10], 'love-board');
                 renderB(results.data, f[7], 'experience-board');
                 drawCharts(results.data, f); 
@@ -209,24 +219,16 @@
 
     function drawCharts(data, fields) {
         const rootsCount = {};
-        const groupCount = {
-            "花形のサックス": 0, "高音のトランペット": 0, "渋いトロンボーン": 0,
-            "リズムを支えるリズム隊": 0, "渋くないトロンボーン (自由回答)": 0, "裏方（PAとか） (自由回答)": 0
-        };
+        const groupCount = { "花形のサックス":0, "高音のトランペット":0, "渋いトロンボーン":0, "リズムを支えるリズム隊":0, "渋くないトロンボーン (自由回答)":0, "裏方（PAとか） (自由回答)":0 };
 
         data.forEach(row => {
             const rCol = fields.find(h => h.includes('ルーツ'));
             const iCol = fields[8]; // I列(Index 8)固定
-
             if (rCol) {
-                (row[rCol] || "").split(/[、,]/).forEach(i => {
-                    const clean = i.trim();
-                    if(clean) rootsCount[clean] = (rootsCount[clean] || 0) + 1;
-                });
+                (row[rCol] || "").split(/[、,]/).forEach(i => { const clean = i.trim(); if(clean) rootsCount[clean] = (rootsCount[clean] || 0) + 1; });
             }
             if (iCol) {
                 const raw = (row[iCol] || "").trim();
-                // 優先判定ロジックでクリーンなグラフを作成
                 if (raw === "渋くないトロンボーン") groupCount["渋くないトロンボーン (自由回答)"]++;
                 else if (raw.includes("裏方") || raw.includes("PA")) groupCount["裏方（PAとか） (自由回答)"]++;
                 else if (raw.includes("サックス")) groupCount["花形のサックス"]++;
@@ -236,39 +238,25 @@
             }
         });
 
-        // Roots (Doughnut)
         new Chart(document.getElementById('rootsChart').getContext('2d'), {
             type: 'doughnut',
-            data: {
-                labels: Object.keys(rootsCount),
-                datasets: [{ 
-                    data: Object.values(rootsCount), 
-                    backgroundColor: ['#ffb7c5', '#b2e2f2', '#98fb98', '#fff9aa', '#dcd3ff', '#ffdab9'],
-                    borderWidth: 2, borderColor: '#fff'
-                }]
-            },
+            data: { labels: Object.keys(rootsCount), datasets: [{ data: Object.values(rootsCount), backgroundColor: ['#ffb7c5', '#b2e2f2', '#98fb98', '#fff9aa', '#dcd3ff', '#ffdab9'], borderWidth: 2, borderColor: '#fff' }] },
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
         });
 
-        // Instruments (Horizontal Bar) - 並び順固定
         const order = ["花形のサックス", "高音のトランペット", "渋いトロンボーン", "リズムを支えるリズム隊", "渋くないトロンボーン (自由回答)", "裏方（PAとか） (自由回答)"];
         new Chart(document.getElementById('instrumentsChart').getContext('2d'), {
             type: 'bar',
-            data: {
-                labels: order,
-                datasets: [{ 
-                    data: order.map(k => groupCount[k]), 
-                    backgroundColor: ['#ffb7c5', '#b2e2f2', '#98fb98', '#fff9aa', '#ffdab9', '#dcd3ff'],
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            data: { labels: order, datasets: [{ data: order.map(k => groupCount[k]), backgroundColor: ['#ffb7c5', '#b2e2f2', '#98fb98', '#fff9aa', '#ffdab9', '#dcd3ff'], borderRadius: 8 }] },
+            options: { 
+                indexAxis: 'y', 
+                responsive: true, 
+                maintainAspectRatio: false, 
                 scales: { 
-                    x: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { stepSize: 1 } },
-                    y: { grid: { display: false }, ticks: { font: { size: 10, weight: '700' } } }
-                },
-                plugins: { legend: { display: false } }
+                    x: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { stepSize: 1 } }, 
+                    y: { grid: { display: false }, ticks: { font: { size: 8, weight: '700' } } } 
+                }, 
+                plugins: { legend: { display: false } } 
             }
         });
     }
