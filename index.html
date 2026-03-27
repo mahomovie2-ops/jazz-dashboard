@@ -34,17 +34,14 @@
 
         .chart-container { background-color: var(--surface-color); border-radius: 20px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; border: 1px solid #f0f0f0; }
 
-        /* 掲示板 */
         .comment-board { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
         .comment-board::-webkit-scrollbar { width: 4px; }
         .comment-board::-webkit-scrollbar-thumb { background: var(--accent-pink); border-radius: 10px; }
         .live-comment-item { padding: 15px; background: #fcfcfc; border-radius: 12px; font-size: 0.95rem; border: 1px solid #eee; color: #444; }
 
-        /* ピックアップコメント */
         .comment-card { background-color: var(--surface-color); border-radius: 15px; padding: 1.5rem; border: 1px solid #eee; margin-bottom: 1rem; }
         .comment-quote { font-weight: 700; font-size: 1.05rem; color: #333; }
 
-        /* アーティスト紹介 */
         .band-card { background-color: var(--surface-color); border-radius: 20px; overflow: hidden; margin-bottom: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #eee; }
         .band-image { width: 100%; height: 240px; object-fit: cover; border-bottom: 3px solid var(--accent-pink); }
         .band-content { padding: 1.5rem; }
@@ -58,7 +55,6 @@
         .sns-x { background-color: #000; }
         .sns-yt { background-color: #ff0000; }
 
-        /* ボタン */
         .btn-green { display: inline-block; background-color: var(--line-green); color: #fff; text-decoration: none; font-weight: bold; padding: 16px 32px; border-radius: 40px; margin-top: 10px; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,176,76,0.2); }
         .final-action { text-align: center; margin-top: 4rem; padding: 3rem 2rem; background-color: #fff; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
     </style>
@@ -106,18 +102,9 @@
 
     <section>
         <h2><span>04.</span> PICK UP VOICES</h2>
-        <div class="comment-card">
-            <div style="font-weight:900; color:var(--accent-pink); font-size:0.75rem; margin-bottom:5px; text-transform:uppercase;">🧐 Technical Voice</div>
-            <div class="comment-quote">「自分はクラシックが専門なので、ビッグバンドだと普段どんなことを意識してアンサンブルしているのか気になります！」</div>
-        </div>
-        <div class="comment-card">
-            <div style="font-weight:900; color:var(--accent-pink); font-size:0.75rem; margin-bottom:5px; text-transform:uppercase;">🎸 Favorite Tunes</div>
-            <div class="comment-quote">「今夜はから騒ぎ／東京事変 バンドでやるとオシャレ」「椎名林檎の曲！」</div>
-        </div>
-        <div class="comment-card">
-            <div style="font-weight:900; color:var(--accent-pink); font-size:0.75rem; margin-bottom:5px; text-transform:uppercase;">🥂 Live Expectation</div>
-            <div class="comment-quote">「生音で聴きながら飲むお酒、そしてJAZZがいい」「ベースの早弾きやドラムのソロが楽しみ！」</div>
-        </div>
+        <div class="comment-card"><div class="comment-quote">「自分はクラシックが専門なので、ビッグバンドだと普段どんなことを意識してアンサンブルしているのか気になります！」</div></div>
+        <div class="comment-card"><div class="comment-quote">「今夜はから騒ぎ／東京事変 バンドでやるとオシャレ」「椎名林檎の曲！」</div></div>
+        <div class="comment-card"><div class="comment-quote">「生音で聴きながら飲むお酒、JAZZがいい。ドラムソロが楽しみ！」</div></div>
     </section>
 
     <section>
@@ -164,10 +151,8 @@
     </section>
 
     <div class="final-action">
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 900; margin-bottom:10px;">本日はご来場ありがとうございます！</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px;">
-            皆様の感想が今後の活動の糧となります。<br>ぜひ、アンケートにて一言お声をお聞かせください！
-        </p>
+        <h3>本日はご来場ありがとうございます！</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px;">皆様の感想が今後の活動の糧となります。ぜひ一言お聞かせください！</p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfN-IuFpDsh87771z5t5N59r9Ff5T9-A4g0pC_YQ3E6o_QeLw/viewform" target="_blank" class="btn-green">アンケートに回答する</a>
     </div>
 </div>
@@ -175,14 +160,12 @@
 <script>
     Chart.defaults.color = '#555';
     Chart.defaults.font.family = "'Montserrat', 'Noto Sans JP', sans-serif";
-
     const SHEET_ID = '15XGG51-_dWPAYvJjmBOEF1uWkHFgvATQBhREr8dN4-M';
     const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
 
     window.onload = function() {
         Papa.parse(CSV_URL, {
-            download: true,
-            header: true,
+            download: true, header: true,
             complete: function(results) { 
                 const fields = results.meta.fields;
                 renderComments(results.data, fields[10]); 
@@ -200,12 +183,8 @@
     function drawCharts(data, fields) {
         const rootsCount = {};
         const groupCount = {
-            "花形のサックス": 0,
-            "高音のトランペット": 0,
-            "渋いトロンボーン": 0,
-            "リズムを支えるリズム隊": 0,
-            "渋くないトロンボーン (自由回答)": 0,
-            "裏方（PAとか） (自由回答)": 0
+            "花形のサックス": 0, "高音のトランペット": 0, "渋いトロンボーン": 0,
+            "リズムを支えるリズム隊": 0, "渋くないトロンボーン (自由回答)": 0, "裏方（PAとか） (自由回答)": 0
         };
         const othersCount = {};
 
@@ -221,8 +200,8 @@
             }
             if (iCol) {
                 const raw = (row[iCol] || "").trim();
-                // 優先判定ロジック
-                if (raw === "渋くないトロンボーン") {
+                // 優先順位を入れ替えたロジック：特定の自由回答を先に拾い上げる
+                if (raw.includes("渋くないトロンボーン")) {
                     groupCount["渋くないトロンボーン (自由回答)"]++;
                 } 
                 else if (raw.includes("裏方") || raw.includes("PA") || raw.includes("pa")) {
@@ -237,7 +216,7 @@
                 else if (raw.includes("トロンボーン")) {
                     groupCount["渋いトロンボーン"]++;
                 } 
-                else if (raw.match(/リズム隊|ピアノ|ベース|ドラム|ギター|打楽器/)) {
+                else if (raw.match(/リズム隊|ピアノ|ベース|ドラム|ギター|打楽器|drums|bass|piano/i)) {
                     groupCount["リズムを支えるリズム隊"]++;
                 } 
                 else if (raw) {
@@ -260,23 +239,13 @@
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
         });
 
-        // Instruments - 指定順序で並べる
-        const order = [
-            "花形のサックス", 
-            "高音のトランペット", 
-            "渋いトロンボーン", 
-            "リズムを支えるリズム隊", 
-            "渋くないトロンボーン (自由回答)", 
-            "裏方（PAとか） (自由回答)"
-        ];
-        
+        // Instruments - 指定の並び順で表示
+        const order = ["花形のサックス", "高音のトランペット", "渋いトロンボーン", "リズムを支えるリズム隊", "渋くないトロンボーン (自由回答)", "裏方（PAとか） (自由回答)"];
         const labels = order.filter(k => groupCount[k] > 0);
         const counts = labels.map(k => groupCount[k]);
         
-        // その他の自由回答
         Object.keys(othersCount).sort((a,b)=>othersCount[b]-othersCount[a]).slice(0, 2).forEach(k => {
-            labels.push(k);
-            counts.push(othersCount[k]);
+            labels.push(k); counts.push(othersCount[k]);
         });
 
         new Chart(document.getElementById('instrumentsChart').getContext('2d'), {
@@ -290,9 +259,7 @@
                 }]
             },
             options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
+                indexAxis: 'y', responsive: true, maintainAspectRatio: false,
                 scales: { 
                     x: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { stepSize: 1 } },
                     y: { grid: { display: false }, ticks: { font: { size: 10, weight: '700' } } }
