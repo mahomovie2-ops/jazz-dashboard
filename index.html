@@ -3,62 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAM 3 Flavors + Your Groove | 来場者ダッシュボード</title>
+    <title>JAM 3 Flavors + Your Groove | LIVE DASHBOARD</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0d0d0d;
-            --surface-color: #1a1a1a;
-            --accent-cyan: #00e5ff;
-            --accent-magenta: #ff00ff;
-            --accent-lime: #ccff00;
-            --accent-yellow: #ffff00;
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --line-green: #06C755;
+            --bg-color: #fdfafb; /* 春の桜をイメージしたオフホワイト */
+            --surface-color: #ffffff;
+            --accent-pink: #ffb7c5;
+            --accent-mint: #b2e2f2;
+            --accent-green: #98fb98;
+            --accent-yellow: #fff9aa;
+            --text-main: #333333;
+            --text-muted: #777777;
+            --line-green: #00b04c;
         }
         * { box-sizing: border-box; }
         body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Noto Sans JP', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
-        header { text-align: center; margin-bottom: 2rem; }
-        .key-visual { width: 100%; height: auto; max-height: 400px; object-fit: cover; display: block; background-color: #222; }
-        .header-content { padding: 1.5rem 1rem; background: linear-gradient(180deg, rgba(13,13,13,0) 0%, rgba(13,13,13,1) 100%); margin-top: -60px; position: relative; }
-        h1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.8rem; margin: 0; letter-spacing: 1px; text-transform: uppercase; }
-        .subtitle { font-size: 0.9rem; color: var(--accent-cyan); font-weight: bold; margin-top: 0.5rem; letter-spacing: 2px; }
+        header { text-align: center; margin-bottom: 2rem; background-color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .key-visual { width: 100%; height: auto; max-height: 400px; object-fit: cover; display: block; }
+        .header-content { padding: 1.5rem 1rem; }
+        h1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.8rem; margin: 0; letter-spacing: 1px; color: #222; text-transform: uppercase; }
+        .subtitle { font-size: 0.85rem; color: var(--line-green); font-weight: bold; margin-top: 0.5rem; letter-spacing: 2px; }
         .container { max-width: 800px; margin: 0 auto; padding: 0 20px 40px; }
         
+        /* 共通セクション */
+        section { margin-bottom: 3.5rem; }
+        h2 { font-family: 'Montserrat', 'Noto Sans JP', sans-serif; font-weight: 900; font-size: 1.4rem; margin-bottom: 1.2rem; padding-left: 10px; border-left: 5px solid var(--accent-pink); display: flex; align-items: center; gap: 10px; color: #444; }
+        h2 span { color: var(--text-muted); font-size: 1rem; }
+
+        .chart-container { background-color: var(--surface-color); border-radius: 20px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; border: 1px solid #f0f0f0; }
+
         /* 掲示板（スクロール） */
-        .comment-board { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 10px; }
-        .comment-board::-webkit-scrollbar { width: 6px; }
-        .comment-board::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 10px; }
-        .live-comment-item { padding: 15px; background: #222; border-radius: 8px; font-size: 0.95rem; border-left: 4px solid var(--accent-cyan); color: #fff; }
+        .comment-board { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
+        .comment-board::-webkit-scrollbar { width: 4px; }
+        .comment-board::-webkit-scrollbar-thumb { background: var(--accent-pink); border-radius: 10px; }
+        .live-comment-item { padding: 15px; background: #fcfcfc; border-radius: 12px; font-size: 0.95rem; border: 1px solid #eee; color: #444; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
 
-        section { margin-bottom: 4rem; }
-        h2 { font-family: 'Montserrat', 'Noto Sans JP', sans-serif; font-weight: 900; font-size: 1.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #333; display: flex; align-items: center; gap: 10px; }
-        h2 span { color: var(--accent-magenta); }
+        /* ピックアップコメント */
+        .comment-card { background-color: var(--surface-color); border-radius: 15px; padding: 1.5rem; border: 1px solid #eee; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .comment-quote { font-weight: 700; font-size: 1.05rem; color: #333; }
 
-        .chart-container { background-color: var(--surface-color); border-radius: 16px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 8px 24px rgba(0,0,0,0.4); position: relative; }
-
-        /* カード・ピックアップコメント */
-        .comment-card { background-color: var(--surface-color); border-radius: 12px; padding: 1.5rem; border-left: 4px solid var(--accent-lime); margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .comment-quote { font-weight: 700; font-size: 1.05rem; line-height: 1.6; }
-
-        .band-card { background-color: var(--surface-color); border-radius: 16px; overflow: hidden; margin-bottom: 2.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .band-image { width: 100%; height: 220px; object-fit: cover; display: block; }
+        /* アーティストカード */
+        .band-card { background-color: var(--surface-color); border-radius: 20px; overflow: hidden; margin-bottom: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #eee; }
+        .band-image { width: 100%; height: 240px; object-fit: cover; border-bottom: 3px solid var(--accent-pink); }
         .band-content { padding: 1.5rem; }
-        .band-name { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; margin: 0; }
-        .band-catchphrase { color: var(--accent-cyan); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
-        .band-description { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .band-name { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; margin: 0; color: #222; }
+        .band-catchphrase { color: var(--line-green); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.8rem; }
+        .band-description { font-size: 0.9rem; color: #555; margin-bottom: 1.5rem; }
         
-        .sns-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
-        .sns-btn { display: inline-block; padding: 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; text-decoration: none; color: #fff; text-align: center; flex: 1; min-width: 90px; }
-        .sns-insta { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-        .sns-x { background-color: #111; border: 1px solid #444; }
-        .sns-yt { background-color: #FF0000; }
+        .sns-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+        .sns-btn { display: inline-block; padding: 10px; border-radius: 10px; font-size: 0.85rem; font-weight: 700; text-decoration: none; color: #fff; text-align: center; flex: 1; transition: opacity 0.2s; }
+        .sns-insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .sns-x { background-color: #000; }
+        .sns-yt { background-color: #ff0000; }
 
-        .btn-green { display: inline-block; background-color: var(--line-green); color: #fff; text-decoration: none; font-weight: bold; padding: 15px 30px; border-radius: 35px; margin-top: 10px; font-size: 1.1rem; box-shadow: 0 0 15px rgba(6,199,85,0.3); }
-        .final-action { text-align: center; margin-top: 4rem; padding: 3rem 2rem; background-color: var(--surface-color); border-radius: 20px; border: 1px solid #333; }
+        /* アンケートボタン */
+        .btn-green { display: inline-block; background-color: var(--line-green); color: #fff; text-decoration: none; font-weight: bold; padding: 16px 32px; border-radius: 40px; margin-top: 10px; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,176,76,0.2); }
+        .final-action { text-align: center; margin-top: 4rem; padding: 3rem 2rem; background-color: #fff; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
     </style>
 </head>
 <body>
@@ -67,22 +70,22 @@
     <img src="main.JPG" alt="JAM 3 Flavors" class="key-visual">
     <div class="header-content">
         <h1>JAM 3 Flavors <br>+ Your Groove</h1>
-        <div class="subtitle">LIVE DASHBOARD</div>
+        <div class="subtitle">LIVE DASHBOARD / 2026.03.29</div>
     </div>
 </header>
 
 <div class="container">
-    <div class="openchat-banner" style="background-color: var(--surface-color); border: 2px solid var(--line-green); border-radius: 12px; padding: 1.5rem; text-align: center; margin-bottom: 3rem;">
-        <h2 style="color: var(--line-green); border:none; margin:0 0 10px 0; justify-content: center;">💬 リアルタイム感想受付中！</h2>
+    <div class="openchat-banner" style="background-color: #fff; border: 2.5px solid var(--line-green); border-radius: 15px; padding: 1.5rem; text-align: center; margin-bottom: 3.5rem;">
+        <h2 style="border:none; margin:0 0 10px 0; justify-content: center; color: var(--line-green);">💬 リアルタイム感想受付中！</h2>
         <a href="https://line.me/ti/g2/eIc6z7MIYRk6lqfQa8zi9nU2kkrW9miEbQDRUQ" target="_blank" class="btn-green">オープンチャットに参加する</a>
     </div>
 
     <section>
         <h2><span>01.</span> WHY WE LOVE BIG BAND?</h2>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">皆様から届いた熱いメッセージ！</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom:15px;">皆様から届いた熱いメッセージ！</p>
         <div class="chart-container">
             <div id="live-comments" class="comment-board">
-                <div style="text-align:center; padding: 20px; color: var(--accent-cyan);">メッセージ受信中...</div>
+                <div style="text-align:center; padding: 20px; color: var(--text-muted);">メッセージ受信中...</div>
             </div>
         </div>
     </section>
@@ -96,7 +99,7 @@
 
     <section>
         <h2><span>03.</span> DREAM INSTRUMENTS</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">「もし自分が入るなら？」圧倒的人気パートは...</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom:15px;">「もし自分が入るなら？」注目の人気パート！</p>
         <div class="chart-container">
             <canvas id="instrumentsChart"></canvas>
         </div>
@@ -105,15 +108,15 @@
     <section>
         <h2><span>04.</span> PICK UP VOICES</h2>
         <div class="comment-card">
-            <div style="font-weight:700; color:var(--accent-lime); font-size:0.8rem; margin-bottom:5px;">🧐 TECHNICAL VOICE</div>
+            <div style="font-weight:900; color:var(--accent-pink); font-size:0.75rem; margin-bottom:5px; text-transform:uppercase;">🧐 Technical Voice</div>
             <div class="comment-quote">「自分はクラシックが専門なので、ビッグバンドだと普段どんなことを意識してアンサンブルしているのか気になります！」</div>
         </div>
         <div class="comment-card">
-            <div style="font-weight:700; color:var(--accent-lime); font-size:0.8rem; margin-bottom:5px;">🎸 FAVORITE TUNES</div>
+            <div style="font-weight:900; color:var(--accent-pink); font-size:0.75rem; margin-bottom:5px; text-transform:uppercase;">🎸 Favorite Tunes</div>
             <div class="comment-quote">「今夜はから騒ぎ／東京事変 バンドでやるとオシャレ」「椎名林檎の曲！」</div>
         </div>
         <div class="comment-card">
-            <div style="font-weight:700; color:var(--accent-lime); font-size:0.8rem; margin-bottom:5px;">🥂 LIVE EXPECTATION</div>
+            <div style="font-weight:900; color:var(--accent-pink); font-size:0.75rem; margin-bottom:5px; text-transform:uppercase;">🥂 Live Expectation</div>
             <div class="comment-quote">「生音で聴きながら飲むお酒、そしてJAZZがいい」「ベースの早弾きやドラムのソロが楽しみ！」</div>
         </div>
     </section>
@@ -171,7 +174,9 @@
 </div>
 
 <script>
-    Chart.defaults.color = '#a0a0a0';
+    Chart.defaults.color = '#555';
+    Chart.defaults.font.family = "'Montserrat', 'Noto Sans JP', sans-serif";
+
     const SHEET_ID = '15XGG51-_dWPAYvJjmBOEF1uWkHFgvATQBhREr8dN4-M';
     const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
 
@@ -181,7 +186,7 @@
             header: true,
             complete: function(results) { 
                 const fields = results.meta.fields;
-                renderComments(results.data, fields[10]);
+                renderComments(results.data, fields[10]); // K列
                 drawCharts(results.data, fields); 
             }
         });
@@ -195,12 +200,13 @@
 
     function drawCharts(data, fields) {
         const rootsCount = {};
-        // 楽器カテゴリーの初期化
         const groupCount = {
             "花形のサックス": 0,
             "高音のトランペット": 0,
             "渋いトロンボーン": 0,
-            "リズムを支えるリズム隊": 0
+            "渋くないトロンボーン": 0,
+            "リズムを支えるリズム隊": 0,
+            "裏方（PAとか）": 0
         };
         const othersCount = {};
 
@@ -216,53 +222,51 @@
             }
             if (iCol) {
                 const raw = (row[iCol] || "");
-                // カテゴリー判定ロジック（自由記述も賢く拾う）
-                if (raw.includes("サックス")) groupCount["花形のサックス"]++;
+                if (raw === "渋くないトロンボーン") groupCount["渋くないトロンボーン"]++;
+                else if (raw.includes("裏方") || raw.includes("PA") || raw.includes("pa")) groupCount["裏方（PAとか）"]++;
+                else if (raw.includes("サックス")) groupCount["花形のサックス"]++;
                 else if (raw.includes("トランペット")) groupCount["高音のトランペット"]++;
                 else if (raw.includes("トロンボーン")) groupCount["渋いトロンボーン"]++;
                 else if (raw.match(/リズム隊|ピアノ|ベース|ドラム|ギター|打楽器/)) groupCount["リズムを支えるリズム隊"]++;
                 else if (raw.trim()) {
-                    // 「裏方」などのユニークな回答をカウント
                     const clean = raw.trim();
                     othersCount[clean] = (othersCount[clean] || 0) + 1;
                 }
             }
         });
 
-        // ルーツ（円グラフ）
+        // Roots Chart (Doughnut)
         new Chart(document.getElementById('rootsChart').getContext('2d'), {
             type: 'doughnut',
             data: {
                 labels: Object.keys(rootsCount),
                 datasets: [{ 
                     data: Object.values(rootsCount), 
-                    backgroundColor: ['#00e5ff', '#ff00ff', '#ccff00', '#ffff00', '#00ff00', '#ff4081'],
-                    borderWidth: 0 
+                    backgroundColor: ['#ffb7c5', '#b2e2f2', '#98fb98', '#fff9aa', '#dcd3ff', '#ffdab9'],
+                    borderWidth: 2, borderColor: '#fff'
                 }]
             },
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
         });
 
-        // 楽器（横棒グラフ：UX改善版）
-        // メインカテゴリーに「その他」の頻出回答を合体させる
-        const chartLabels = Object.keys(groupCount);
-        const chartData = Object.values(groupCount);
+        // Instruments Chart (Horizontal Bar)
+        const labels = Object.keys(groupCount).filter(k => groupCount[k] > 0);
+        const counts = labels.map(k => groupCount[k]);
         
-        // 頻度の高い「その他」回答があれば追加（スリム化のため上位2件まで）
-        const sortedOthers = Object.keys(othersCount).sort((a,b) => othersCount[b] - othersCount[a]);
-        sortedOthers.slice(0, 2).forEach(label => {
-            chartLabels.push(label);
-            chartData.push(othersCount[label]);
+        // 「その他」の頻出回答を追加
+        Object.keys(othersCount).sort((a,b)=>othersCount[b]-othersCount[a]).slice(0, 2).forEach(k => {
+            labels.push(k);
+            counts.push(othersCount[k]);
         });
 
         new Chart(document.getElementById('instrumentsChart').getContext('2d'), {
             type: 'bar',
             data: {
-                labels: chartLabels,
+                labels: labels,
                 datasets: [{ 
-                    data: chartData, 
-                    backgroundColor: ['#00e5ff', '#ff00ff', '#ccff00', '#ffff00', '#00ff00', '#ff4081'],
-                    borderRadius: 6 
+                    data: counts, 
+                    backgroundColor: ['#ffb7c5', '#b2e2f2', '#98fb98', '#fff9aa', '#dcd3ff', '#ffdab9', '#e0e0e0'],
+                    borderRadius: 8
                 }]
             },
             options: {
@@ -270,8 +274,8 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: { 
-                    x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { stepSize: 1 } },
-                    y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                    x: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { stepSize: 1 } },
+                    y: { grid: { display: false }, ticks: { font: { size: 11, weight: '700' } } }
                 },
                 plugins: { legend: { display: false } }
             }
