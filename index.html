@@ -11,114 +11,54 @@
         :root {
             --bg-color: #0d0d0d;
             --surface-color: #1a1a1a;
-            --accent-color: #00e5ff;
+            --accent-cyan: #00e5ff;
+            --accent-magenta: #ff00ff;
+            --accent-lime: #ccff00;
+            --accent-yellow: #ffff00;
             --text-main: #ffffff;
             --text-muted: #a0a0a0;
             --line-green: #06C755;
         }
         * { box-sizing: border-box; }
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Noto Sans JP', sans-serif;
-            margin: 0; padding: 0; line-height: 1.6;
-        }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Noto Sans JP', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
         header { text-align: center; margin-bottom: 2rem; }
-        .key-visual {
-            width: 100%; height: auto; max-height: 400px;
-            object-fit: cover; display: block; background-color: #222;
-        }
-        .header-content {
-            padding: 1.5rem 1rem;
-            background: linear-gradient(180deg, rgba(13,13,13,0) 0%, rgba(13,13,13,1) 100%);
-            margin-top: -60px; position: relative;
-        }
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900; font-size: 1.8rem; margin: 0;
-            letter-spacing: 1px; text-transform: uppercase;
-        }
-        .subtitle {
-            font-size: 0.9rem; color: var(--accent-color);
-            font-weight: bold; margin-top: 0.5rem; letter-spacing: 2px;
-        }
+        .key-visual { width: 100%; height: auto; max-height: 400px; object-fit: cover; display: block; background-color: #222; }
+        .header-content { padding: 1.5rem 1rem; background: linear-gradient(180deg, rgba(13,13,13,0) 0%, rgba(13,13,13,1) 100%); margin-top: -60px; position: relative; }
+        h1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.8rem; margin: 0; letter-spacing: 1px; text-transform: uppercase; }
+        .subtitle { font-size: 0.9rem; color: var(--accent-cyan); font-weight: bold; margin-top: 0.5rem; letter-spacing: 2px; }
         .container { max-width: 800px; margin: 0 auto; padding: 0 20px 40px; }
         
-        .openchat-banner {
-            background-color: var(--surface-color);
-            border: 2px solid var(--line-green); border-radius: 12px;
-            padding: 1.5rem; text-align: center; margin-bottom: 3rem;
-        }
-        .btn-green {
-            display: inline-block; background-color: var(--line-green);
-            color: #fff; text-decoration: none; font-weight: bold;
-            padding: 12px 24px; border-radius: 30px; margin-top: 10px;
-            font-size: 1.1rem; transition: transform 0.2s;
-        }
+        /* 掲示板（スクロール） */
+        .comment-board { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 10px; }
+        .comment-board::-webkit-scrollbar { width: 6px; }
+        .comment-board::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 10px; }
+        .live-comment-item { padding: 15px; background: #222; border-radius: 8px; font-size: 0.95rem; border-left: 4px solid var(--accent-cyan); color: #fff; }
 
         section { margin-bottom: 4rem; }
-        h2 {
-            font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
-            font-weight: 900; font-size: 1.5rem; margin-bottom: 1rem;
-            padding-bottom: 0.5rem; border-bottom: 2px solid #333;
-            display: flex; align-items: center; gap: 10px;
-        }
-        h2 span { color: var(--accent-color); }
+        h2 { font-family: 'Montserrat', 'Noto Sans JP', sans-serif; font-weight: 900; font-size: 1.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #333; display: flex; align-items: center; gap: 10px; }
+        h2 span { color: var(--accent-magenta); }
 
-        .chart-container {
-            background-color: var(--surface-color); border-radius: 16px;
-            padding: 1.5rem; min-height: 240px; width: 100%;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4); position: relative;
-        }
+        .chart-container { background-color: var(--surface-color); border-radius: 16px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 8px 24px rgba(0,0,0,0.4); position: relative; }
 
-        /* 掲示板 */
-        .comment-board {
-            max-height: 300px; overflow-y: auto;
-            display: flex; flex-direction: column; gap: 12px; padding-right: 10px;
-        }
-        .comment-board::-webkit-scrollbar { width: 6px; }
-        .comment-board::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 10px; }
-        .live-comment-item {
-            padding: 15px; background: #222; border-radius: 8px;
-            font-size: 0.95rem; border-left: 4px solid var(--accent-color);
-            color: #fff; line-height: 1.5;
-        }
+        /* カード・ピックアップコメント */
+        .comment-card { background-color: var(--surface-color); border-radius: 12px; padding: 1.5rem; border-left: 4px solid var(--accent-lime); margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .comment-quote { font-weight: 700; font-size: 1.05rem; line-height: 1.6; }
 
-        /* 手動ピックアップコメント */
-        .comment-grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; }
-        .comment-card {
-            background-color: var(--surface-color); border-radius: 12px;
-            padding: 1.5rem; border-left: 4px solid var(--accent-color);
-        }
-        .comment-quote { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.8rem; }
-        .comment-meta { font-size: 0.85rem; color: var(--text-muted); text-align: right; }
-
-        /* アーティスト紹介 */
-        .band-card {
-            background-color: var(--surface-color); border-radius: 16px;
-            overflow: hidden; margin-bottom: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .band-image { width: 100%; height: 220px; object-fit: cover; display: block; background-color: #333; }
+        .band-card { background-color: var(--surface-color); border-radius: 16px; overflow: hidden; margin-bottom: 2.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .band-image { width: 100%; height: 220px; object-fit: cover; display: block; }
         .band-content { padding: 1.5rem; }
         .band-name { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; margin: 0; }
-        .band-catchphrase { color: var(--accent-color); font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
+        .band-catchphrase { color: var(--accent-cyan); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
         .band-description { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; }
         
         .sns-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
-        .sns-btn {
-            display: inline-block; padding: 10px; border-radius: 8px;
-            font-size: 0.8rem; font-weight: 700; text-decoration: none; color: #fff; text-align: center; flex: 1; min-width: 90px;
-        }
+        .sns-btn { display: inline-block; padding: 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; text-decoration: none; color: #fff; text-align: center; flex: 1; min-width: 90px; }
         .sns-insta { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
         .sns-x { background-color: #111; border: 1px solid #444; }
         .sns-yt { background-color: #FF0000; }
 
-        /* フッターアンケート */
-        .final-action {
-            text-align: center; margin-top: 4rem; padding: 2rem;
-            background-color: var(--surface-color); border-radius: 16px;
-        }
+        .btn-green { display: inline-block; background-color: var(--line-green); color: #fff; text-decoration: none; font-weight: bold; padding: 15px 30px; border-radius: 35px; margin-top: 10px; font-size: 1.1rem; box-shadow: 0 0 15px rgba(6,199,85,0.3); }
+        .final-action { text-align: center; margin-top: 4rem; padding: 3rem 2rem; background-color: var(--surface-color); border-radius: 20px; border: 1px solid #333; }
     </style>
 </head>
 <body>
@@ -132,8 +72,8 @@
 </header>
 
 <div class="container">
-    <div class="openchat-banner">
-        <h2>💬 リアルタイム感想受付中！</h2>
+    <div class="openchat-banner" style="background-color: var(--surface-color); border: 2px solid var(--line-green); border-radius: 12px; padding: 1.5rem; text-align: center; margin-bottom: 3rem;">
+        <h2 style="color: var(--line-green); border:none; margin:0 0 10px 0; justify-content: center;">💬 リアルタイム感想受付中！</h2>
         <a href="https://line.me/ti/g2/eIc6z7MIYRk6lqfQa8zi9nU2kkrW9miEbQDRUQ" target="_blank" class="btn-green">オープンチャットに参加する</a>
     </div>
 
@@ -142,7 +82,7 @@
         <p style="font-size: 0.9rem; color: var(--text-muted);">皆様から届いた熱いメッセージ！</p>
         <div class="chart-container">
             <div id="live-comments" class="comment-board">
-                <div style="text-align:center; padding: 20px; color: var(--accent-color);">読み込み中...</div>
+                <div style="text-align:center; padding: 20px; color: var(--accent-cyan);">メッセージ受信中...</div>
             </div>
         </div>
     </section>
@@ -156,7 +96,7 @@
 
     <section>
         <h2><span>03.</span> DREAM INSTRUMENTS</h2>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">「もしビッグバンドに入るなら？」注目の人気パート！</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">「もし自分が入るなら？」圧倒的人気パートは...</p>
         <div class="chart-container">
             <canvas id="instrumentsChart"></canvas>
         </div>
@@ -164,30 +104,27 @@
 
     <section>
         <h2><span>04.</span> PICK UP VOICES</h2>
-        <div class="comment-grid">
-            <div class="comment-card">
-                <div class="comment-quote">「自分はクラシックが専門なので、ビッグバンドだと普段どんなことを意識してアンサンブルしているのか気になります！」</div>
-                <div class="comment-meta">— 吹奏楽・クラシック出身の方より</div>
-            </div>
-            <div class="comment-card">
-                <div class="comment-quote">「今夜はから騒ぎ／東京事変 バンドでやるとオシャレ」「椎名林檎の曲！」</div>
-                <div class="comment-meta">— ロック・ポップス好きの方より</div>
-            </div>
-            <div class="comment-card">
-                <div class="comment-quote">「ライブ感が最高、生音で聴きながら飲むお酒、そしてJAZZがいい」「ベースの早弾きやドラムのソロが楽しみ！」</div>
-                <div class="comment-meta">— ライブへの期待の声！</div>
-            </div>
+        <div class="comment-card">
+            <div style="font-weight:700; color:var(--accent-lime); font-size:0.8rem; margin-bottom:5px;">🧐 TECHNICAL VOICE</div>
+            <div class="comment-quote">「自分はクラシックが専門なので、ビッグバンドだと普段どんなことを意識してアンサンブルしているのか気になります！」</div>
+        </div>
+        <div class="comment-card">
+            <div style="font-weight:700; color:var(--accent-lime); font-size:0.8rem; margin-bottom:5px;">🎸 FAVORITE TUNES</div>
+            <div class="comment-quote">「今夜はから騒ぎ／東京事変 バンドでやるとオシャレ」「椎名林檎の曲！」</div>
+        </div>
+        <div class="comment-card">
+            <div style="font-weight:700; color:var(--accent-lime); font-size:0.8rem; margin-bottom:5px;">🥂 LIVE EXPECTATION</div>
+            <div class="comment-quote">「生音で聴きながら飲むお酒、そしてJAZZがいい」「ベースの早弾きやドラムのソロが楽しみ！」</div>
         </div>
     </section>
 
     <section>
         <h2><span>05.</span> ARTISTS</h2>
-        
         <div class="band-card">
-            <img src="bighollow.JPG" alt="Big Hollow Band" class="band-image">
+            <img src="bighollow.JPG" class="band-image">
             <div class="band-content">
                 <h3 class="band-name">Big Hollow Band</h3>
-                <p class="band-catchphrase">徐々に都心から脱出バンド</p>
+                <div class="band-catchphrase">徐々に都心から脱出バンド</div>
                 <p class="band-description">昭和大学MASと筑波大学Neopolis出身者を中心として結成された本気のファンク＆コンテンポラリーバンド！</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/big.hollow.band" target="_blank" class="sns-btn sns-insta">Instagram</a>
@@ -196,12 +133,11 @@
                 </div>
             </div>
         </div>
-
         <div class="band-card">
-            <img src="eagle.JPG" alt="Eagle Jazztech" class="band-image">
+            <img src="eagle.JPG" class="band-image">
             <div class="band-content">
                 <h3 class="band-name">Eagle Jazztech Orchestra</h3>
-                <p class="band-catchphrase">王道を往く、爽快スウィング。</p>
+                <div class="band-catchphrase">王道を往く、爽快スウィング。</div>
                 <p class="band-description">上智大学をルーツとし、突き抜けるような爽快スウィングをお届けします！</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/eagle_jazztech" target="_blank" class="sns-btn sns-insta">Instagram</a>
@@ -210,13 +146,12 @@
                 </div>
             </div>
         </div>
-
         <div class="band-card">
-            <img src="platanus.JPG" alt="Platanus Jazz" class="band-image">
+            <img src="platanus.JPG" class="band-image">
             <div class="band-content">
                 <h3 class="band-name">Platanus Jazz Orchestra</h3>
-                <p class="band-catchphrase">Unraveling the Boundaries Between Us</p>
-                <p class="band-description">立教大学出身者を中心に結成。聴く人と奏でる人の境界がほどける瞬間を大切にしています。</p>
+                <div class="band-catchphrase">Unraveling the Boundaries</div>
+                <p class="band-description">立教大学出身者を中心に結成。音を通して、聴く人と奏でる人の境界がほどける瞬間を大切にしています。</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/platanusjazz" target="_blank" class="sns-btn sns-insta">Instagram</a>
                     <a href="https://x.com/platanusjazz" target="_blank" class="sns-btn sns-x">X</a>
@@ -227,9 +162,9 @@
     </section>
 
     <div class="final-action">
-        <h3>本日はご来場ありがとうございます！</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
-            皆様の感想が今後の活動の糧となります。<br>ぜひ一言お声をお聞かせください！
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 900; margin-bottom:10px;">本日はご来場ありがとうございます！</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px;">
+            皆様の感想が今後の活動の糧となります。<br>ぜひ、アンケートにて一言お声をお聞かせください！
         </p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfN-IuFpDsh87771z5t5N59r9Ff5T9-A4g0pC_YQ3E6o_QeLw/viewform" target="_blank" class="btn-green">アンケートに回答する</a>
     </div>
@@ -255,19 +190,19 @@
     function renderComments(data, col) {
         const container = document.getElementById('live-comments');
         const comments = data.map(row => row[col]).filter(t => t && t.trim()).reverse().slice(0, 15);
-        if (comments.length === 0) {
-            container.innerHTML = '<div class="live-comment-item">まだメッセージがありません</div>';
-        } else {
-            container.innerHTML = comments.map(t => `<div class="live-comment-item">“ ${t} ”</div>`).join('');
-        }
+        container.innerHTML = comments.length === 0 ? '<div class="live-comment-item">まだメッセージがありません</div>' : comments.map(t => `<div class="live-comment-item">“ ${t} ”</div>`).join('');
     }
 
     function drawCharts(data, fields) {
         const rootsCount = {};
-        const instCount = {};
-        
-        // 主要楽器キーワード（クリーニング用）
-        const masterInst = ["サックス", "トランペット", "トロンボーン", "ピアノ", "ベース", "ドラム", "ギター", "クラリネット", "フルート", "打楽器", "ボーカル"];
+        // 楽器カテゴリーの初期化
+        const groupCount = {
+            "花形のサックス": 0,
+            "高音のトランペット": 0,
+            "渋いトロンボーン": 0,
+            "リズムを支えるリズム隊": 0
+        };
+        const othersCount = {};
 
         data.forEach(row => {
             const rCol = fields.find(h => h.includes('ルーツ'));
@@ -280,17 +215,17 @@
                 });
             }
             if (iCol) {
-                const raw = row[iCol] || "";
-                // テキストからキーワードを探してカウント（UX改善：グラフの断片化を防ぐ）
-                let found = false;
-                masterInst.forEach(key => {
-                    if(raw.includes(key)) {
-                        instCount[key] = (instCount[key] || 0) + 1;
-                        found = true;
-                    }
-                });
-                // キーワードにない場合は「その他」
-                if(!found && raw.trim()) instCount["その他"] = (instCount["その他"] || 0) + 1;
+                const raw = (row[iCol] || "");
+                // カテゴリー判定ロジック（自由記述も賢く拾う）
+                if (raw.includes("サックス")) groupCount["花形のサックス"]++;
+                else if (raw.includes("トランペット")) groupCount["高音のトランペット"]++;
+                else if (raw.includes("トロンボーン")) groupCount["渋いトロンボーン"]++;
+                else if (raw.match(/リズム隊|ピアノ|ベース|ドラム|ギター|打楽器/)) groupCount["リズムを支えるリズム隊"]++;
+                else if (raw.trim()) {
+                    // 「裏方」などのユニークな回答をカウント
+                    const clean = raw.trim();
+                    othersCount[clean] = (othersCount[clean] || 0) + 1;
+                }
             }
         });
 
@@ -299,26 +234,44 @@
             type: 'doughnut',
             data: {
                 labels: Object.keys(rootsCount),
-                datasets: [{ data: Object.values(rootsCount), backgroundColor: ['#00e5ff', '#06C755', '#ff4081', '#ffd54f', '#9e9e9e', '#ab47bc'], borderWidth: 0 }]
+                datasets: [{ 
+                    data: Object.values(rootsCount), 
+                    backgroundColor: ['#00e5ff', '#ff00ff', '#ccff00', '#ffff00', '#00ff00', '#ff4081'],
+                    borderWidth: 0 
+                }]
             },
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
         });
 
         // 楽器（横棒グラフ：UX改善版）
-        const sortedInst = Object.keys(instCount).map(k => ({l: k, c: instCount[k]})).sort((a,b)=>b.c - a.c);
+        // メインカテゴリーに「その他」の頻出回答を合体させる
+        const chartLabels = Object.keys(groupCount);
+        const chartData = Object.values(groupCount);
+        
+        // 頻度の高い「その他」回答があれば追加（スリム化のため上位2件まで）
+        const sortedOthers = Object.keys(othersCount).sort((a,b) => othersCount[b] - othersCount[a]);
+        sortedOthers.slice(0, 2).forEach(label => {
+            chartLabels.push(label);
+            chartData.push(othersCount[label]);
+        });
+
         new Chart(document.getElementById('instrumentsChart').getContext('2d'), {
             type: 'bar',
             data: {
-                labels: sortedInst.map(i => i.l),
-                datasets: [{ label: '票数', data: sortedInst.map(i => i.c), backgroundColor: '#00e5ff', borderRadius: 4 }]
+                labels: chartLabels,
+                datasets: [{ 
+                    data: chartData, 
+                    backgroundColor: ['#00e5ff', '#ff00ff', '#ccff00', '#ffff00', '#00ff00', '#ff4081'],
+                    borderRadius: 6 
+                }]
             },
             options: {
-                indexAxis: 'y', // 横棒グラフに設定
+                indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: { 
-                    x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' } },
-                    y: { grid: { display: false } }
+                    x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { stepSize: 1 } },
+                    y: { grid: { display: false }, ticks: { font: { size: 10 } } }
                 },
                 plugins: { legend: { display: false } }
             }
