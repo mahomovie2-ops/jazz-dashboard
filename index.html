@@ -135,7 +135,7 @@
 
     <section>
         <h2><span>02.</span> ROOTS OF MUSIC</h2>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">皆さんの「音楽のルーツ」をチェック！</p>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">本日のフロアを揺らす皆さんの「音楽のルーツ」をチェック！</p>
         <div class="chart-container">
             <div id="rootsLoading" class="loading">集計中...</div>
             <canvas id="rootsChart" style="display:none;"></canvas>
@@ -144,7 +144,7 @@
 
     <section>
         <h2><span>03.</span> DREAM INSTRUMENTS</h2>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">注目の人気パート！</p>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">「もしビッグバンドに入るなら？」注目の人気パート！</p>
         <div class="chart-container">
             <div id="instLoading" class="loading">集計中...</div>
             <canvas id="instrumentsChart" style="display:none;"></canvas>
@@ -175,10 +175,13 @@
 
     <section>
         <h2><span>05.</span> ARTISTS</h2>
+        
         <div class="band-card">
             <img src="bighollow.JPG" alt="Big Hollow Band" class="band-image">
             <div class="band-content">
                 <h3 class="band-name">Big Hollow Band</h3>
+                <p class="band-catchphrase">徐々に都心から脱出バンド</p>
+                <p class="band-description">昭和大学MASと筑波大学Neopolis出身者を中心として、2022年にその場のノリと勢いで結成した社会人ビッグバンドです。本日は本気のファンクジャズとコンテンポラリージャズを演奏するのでお楽しみください！</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/big.hollow.band" target="_blank" class="sns-btn sns-insta">Instagram</a>
                     <a href="https://x.com/kubo_ban1210" target="_blank" class="sns-btn sns-x">X</a>
@@ -186,10 +189,13 @@
                 </div>
             </div>
         </div>
+
         <div class="band-card">
             <img src="eagle.JPG" alt="Eagle Jazztech" class="band-image">
             <div class="band-content">
                 <h3 class="band-name">Eagle Jazztech Orchestra</h3>
+                <p class="band-catchphrase">王道を往く、爽快スウィング。</p>
+                <p class="band-description">上智大学をルーツとし、学生時代の縁やその後の出会いで結集した社会人ビッグバンドです。ロブ・パートンのナンバーや心躍るボーカル曲を交え、突き抜けるような爽快スウィングをお届けします！</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/eagle_jazztech" target="_blank" class="sns-btn sns-insta">Instagram</a>
                     <a href="https://x.com/eagle_jazztech" target="_blank" class="sns-btn sns-x">X</a>
@@ -197,10 +203,13 @@
                 </div>
             </div>
         </div>
+
         <div class="band-card">
             <img src="platanus.JPG" alt="Platanus Jazz" class="band-image">
             <div class="band-content">
                 <h3 class="band-name">Platanus Jazz Orchestra</h3>
+                <p class="band-catchphrase">Unraveling the Boundaries Between Us</p>
+                <p class="band-description">立教大学出身者を中心に結成されたビッグバンドです。伝統を重んじながらジャズの可能性を模索し、音を通して、聴く人と奏でる人の境界がほどける瞬間を大切にしています。</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/platanusjazz" target="_blank" class="sns-btn sns-insta">Instagram</a>
                     <a href="https://x.com/platanusjazz" target="_blank" class="sns-btn sns-x">X</a>
@@ -213,6 +222,7 @@
 
 <script>
     Chart.defaults.color = '#a0a0a0';
+    Chart.defaults.font.family = "'Montserrat', 'Noto Sans JP', sans-serif";
     const SHEET_ID = '15XGG51-_dWPAYvJjmBOEF1uWkHFgvATQBhREr8dN4-M';
     const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
 
