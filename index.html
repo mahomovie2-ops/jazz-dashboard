@@ -30,24 +30,25 @@
         
         section { margin-bottom: 3.5rem; }
         h2 { font-family: 'Montserrat', 'Noto Sans JP', sans-serif; font-weight: 900; font-size: 1.4rem; margin-bottom: 1.2rem; padding-left: 10px; border-left: 5px solid var(--accent-pink); display: flex; align-items: center; gap: 10px; color: #444; }
-        h2 span { color: var(--text-muted); font-size: 1rem; }
-
+        
         .chart-container { background-color: var(--surface-color); border-radius: 20px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; border: 1px solid #f0f0f0; }
 
-        .comment-board { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
+        /* 掲示板（スクロール） */
+        .comment-board { max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
         .comment-board::-webkit-scrollbar { width: 4px; }
         .comment-board::-webkit-scrollbar-thumb { background: var(--accent-pink); border-radius: 10px; }
         .live-comment-item { padding: 15px; background: #fcfcfc; border-radius: 12px; font-size: 0.95rem; border: 1px solid #eee; color: #444; }
 
+        /* 手動ピックアップコメント */
         .comment-card { background-color: var(--surface-color); border-radius: 15px; padding: 1.5rem; border: 1px solid #eee; margin-bottom: 1rem; }
         .comment-quote { font-weight: 700; font-size: 1.05rem; color: #333; }
 
+        /* アーティスト */
         .band-card { background-color: var(--surface-color); border-radius: 20px; overflow: hidden; margin-bottom: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #eee; }
         .band-image { width: 100%; height: 240px; object-fit: cover; border-bottom: 3px solid var(--accent-pink); }
         .band-content { padding: 1.5rem; }
         .band-name { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; margin: 0; color: #222; }
         .band-catchphrase { color: var(--line-green); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.8rem; }
-        .band-description { font-size: 0.9rem; color: #555; margin-bottom: 1.5rem; }
         
         .sns-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
         .sns-btn { display: inline-block; padding: 10px; border-radius: 10px; font-size: 0.85rem; font-weight: 700; text-decoration: none; color: #fff; text-align: center; flex: 1; }
@@ -55,6 +56,7 @@
         .sns-x { background-color: #000; }
         .sns-yt { background-color: #ff0000; }
 
+        /* アンケートボタン */
         .btn-green { display: inline-block; background-color: var(--line-green); color: #fff; text-decoration: none; font-weight: bold; padding: 16px 32px; border-radius: 40px; margin-top: 10px; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,176,76,0.2); }
         .final-action { text-align: center; margin-top: 4rem; padding: 3rem 2rem; background-color: #fff; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
     </style>
@@ -77,16 +79,17 @@
 
     <section>
         <h2><span>01.</span> WHY WE LOVE BIG BAND?</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom:15px;">皆様から届いた熱いメッセージ！</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom:15px;">皆様から届いた「ここが好き！」メッセージ</p>
         <div class="chart-container">
-            <div id="live-comments" class="comment-board">
-                <div style="text-align:center; padding: 20px; color: var(--text-muted);">メッセージ受信中...</div>
+            <div id="love-board" class="comment-board">
+                <div style="text-align:center; padding: 20px; color: var(--text-muted);">読み込み中...</div>
             </div>
         </div>
     </section>
 
     <section>
         <h2><span>02.</span> ROOTS OF MUSIC</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom:15px;">皆様の「音楽のルーツ」をチェック！</p>
         <div class="chart-container">
             <canvas id="rootsChart"></canvas>
         </div>
@@ -101,20 +104,30 @@
     </section>
 
     <section>
-        <h2><span>04.</span> PICK UP VOICES</h2>
+        <h2><span>04.</span> EXPERIENCE VOICES</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom:15px;">皆様の楽器経験や音楽エピソード！</p>
+        <div class="chart-container">
+            <div id="experience-board" class="comment-board">
+                <div style="text-align:center; padding: 20px; color: var(--text-muted);">読み込み中...</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2><span>05.</span> PICK UP VOICES</h2>
         <div class="comment-card"><div class="comment-quote">「自分はクラシックが専門なので、ビッグバンドだと普段どんなことを意識してアンサンブルしているのか気になります！」</div></div>
         <div class="comment-card"><div class="comment-quote">「今夜はから騒ぎ／東京事変 バンドでやるとオシャレ」「椎名林檎の曲！」</div></div>
         <div class="comment-card"><div class="comment-quote">「生音で聴きながら飲むお酒、JAZZがいい。ドラムソロが楽しみ！」</div></div>
     </section>
 
     <section>
-        <h2><span>05.</span> ARTISTS</h2>
+        <h2><span>06.</span> ARTISTS</h2>
         <div class="band-card">
             <img src="bighollow.JPG" class="band-image">
             <div class="band-content">
                 <h3 class="band-name">Big Hollow Band</h3>
                 <div class="band-catchphrase">徐々に都心から脱出バンド</div>
-                <p class="band-description">昭和大学MASと筑波大学Neopolis出身者を中心として結成された本気のファンク＆コンテンポラリーバンド！</p>
+                <p style="font-size: 0.9rem; color: #555;">昭和大学MASと筑波大学Neopolis出身者を中心として結成された本気のファンク＆コンテンポラリーバンド！</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/big.hollow.band" target="_blank" class="sns-btn sns-insta">Instagram</a>
                     <a href="https://x.com/kubo_ban1210" target="_blank" class="sns-btn sns-x">X</a>
@@ -127,7 +140,7 @@
             <div class="band-content">
                 <h3 class="band-name">Eagle Jazztech Orchestra</h3>
                 <div class="band-catchphrase">王道を往く、爽快スウィング。</div>
-                <p class="band-description">上智大学をルーツとし、突き抜けるような爽快スウィングをお届けします！</p>
+                <p style="font-size: 0.9rem; color: #555;">上智大学をルーツとし、突き抜けるような爽快スウィングをお届けします！</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/eagle_jazztech" target="_blank" class="sns-btn sns-insta">Instagram</a>
                     <a href="https://x.com/eagle_jazztech" target="_blank" class="sns-btn sns-x">X</a>
@@ -140,7 +153,7 @@
             <div class="band-content">
                 <h3 class="band-name">Platanus Jazz Orchestra</h3>
                 <div class="band-catchphrase">Unraveling the Boundaries</div>
-                <p class="band-description">立教大学出身者を中心に結成。音を通して、聴く人と奏でる人の境界がほどける瞬間を大切にしています。</p>
+                <p style="font-size: 0.9rem; color: #555;">立教大学出身者を中心に結成。音を通して、聴く人と奏でる人の境界がほどける瞬間を大切にしています。</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/platanusjazz" target="_blank" class="sns-btn sns-insta">Instagram</a>
                     <a href="https://x.com/platanusjazz" target="_blank" class="sns-btn sns-x">X</a>
@@ -159,7 +172,6 @@
 
 <script>
     Chart.defaults.color = '#555';
-    Chart.defaults.font.family = "'Montserrat', 'Noto Sans JP', sans-serif";
     const SHEET_ID = '15XGG51-_dWPAYvJjmBOEF1uWkHFgvATQBhREr8dN4-M';
     const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
 
@@ -168,15 +180,17 @@
             download: true, header: true,
             complete: function(results) { 
                 const fields = results.meta.fields;
-                renderComments(results.data, fields[10]); 
+                // K列(10): 魅力 / H列(7): 経験
+                renderBoard(results.data, fields[10], 'love-board');
+                renderBoard(results.data, fields[7], 'experience-board');
                 drawCharts(results.data, fields); 
             }
         });
     };
 
-    function renderComments(data, col) {
-        const container = document.getElementById('live-comments');
-        const comments = data.map(row => row[col]).filter(t => t && t.trim()).reverse().slice(0, 15);
+    function renderBoard(data, col, targetId) {
+        const container = document.getElementById(targetId);
+        const comments = data.map(row => row[col]).filter(t => t && t.trim()).reverse().slice(0, 20);
         container.innerHTML = comments.length === 0 ? '<div class="live-comment-item">まだメッセージがありません</div>' : comments.map(t => `<div class="live-comment-item">“ ${t} ”</div>`).join('');
     }
 
@@ -186,11 +200,10 @@
             "花形のサックス": 0, "高音のトランペット": 0, "渋いトロンボーン": 0,
             "リズムを支えるリズム隊": 0, "渋くないトロンボーン (自由回答)": 0, "裏方（PAとか） (自由回答)": 0
         };
-        const othersCount = {};
 
         data.forEach(row => {
             const rCol = fields.find(h => h.includes('ルーツ'));
-            const iCol = fields.find(h => h.includes('楽器'));
+            const iCol = fields[8]; // I列固定
 
             if (rCol) {
                 (row[rCol] || "").split(/[、,]/).forEach(i => {
@@ -200,28 +213,13 @@
             }
             if (iCol) {
                 const raw = (row[iCol] || "").trim();
-                // 優先順位を入れ替えたロジック：特定の自由回答を先に拾い上げる
-                if (raw.includes("渋くないトロンボーン")) {
-                    groupCount["渋くないトロンボーン (自由回答)"]++;
-                } 
-                else if (raw.includes("裏方") || raw.includes("PA") || raw.includes("pa")) {
-                    groupCount["裏方（PAとか） (自由回答)"]++;
-                } 
-                else if (raw.includes("サックス")) {
-                    groupCount["花形のサックス"]++;
-                } 
-                else if (raw.includes("トランペット")) {
-                    groupCount["高音のトランペット"]++;
-                } 
-                else if (raw.includes("トロンボーン")) {
-                    groupCount["渋いトロンボーン"]++;
-                } 
-                else if (raw.match(/リズム隊|ピアノ|ベース|ドラム|ギター|打楽器|drums|bass|piano/i)) {
-                    groupCount["リズムを支えるリズム隊"]++;
-                } 
-                else if (raw) {
-                    othersCount[raw] = (othersCount[raw] || 0) + 1;
-                }
+                // 指定の項目のみをカウント（クリーン化）
+                if (raw === "渋くないトロンボーン") groupCount["渋くないトロンボーン (自由回答)"]++;
+                else if (raw.includes("裏方") || raw.includes("PA")) groupCount["裏方（PAとか） (自由回答)"]++;
+                else if (raw.includes("サックス")) groupCount["花形のサックス"]++;
+                else if (raw.includes("トランペット")) groupCount["高音のトランペット"]++;
+                else if (raw.includes("トロンボーン")) groupCount["渋いトロンボーン"]++;
+                else if (raw.match(/リズム隊|ピアノ|ベース|ドラム|ギター|打楽器/)) groupCount["リズムを支えるリズム隊"]++;
             }
         });
 
@@ -239,22 +237,15 @@
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
         });
 
-        // Instruments - 指定の並び順で表示
+        // Instruments (Ordered Bar)
         const order = ["花形のサックス", "高音のトランペット", "渋いトロンボーン", "リズムを支えるリズム隊", "渋くないトロンボーン (自由回答)", "裏方（PAとか） (自由回答)"];
-        const labels = order.filter(k => groupCount[k] > 0);
-        const counts = labels.map(k => groupCount[k]);
-        
-        Object.keys(othersCount).sort((a,b)=>othersCount[b]-othersCount[a]).slice(0, 2).forEach(k => {
-            labels.push(k); counts.push(othersCount[k]);
-        });
-
         new Chart(document.getElementById('instrumentsChart').getContext('2d'), {
             type: 'bar',
             data: {
-                labels: labels,
+                labels: order,
                 datasets: [{ 
-                    data: counts, 
-                    backgroundColor: ['#ffb7c5', '#b2e2f2', '#98fb98', '#fff9aa', '#ffdab9', '#dcd3ff', '#e0e0e0'],
+                    data: order.map(k => groupCount[k]), 
+                    backgroundColor: ['#ffb7c5', '#b2e2f2', '#98fb98', '#fff9aa', '#ffdab9', '#dcd3ff'],
                     borderRadius: 8
                 }]
             },
