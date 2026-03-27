@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fdfafb; /* 春の桜をイメージしたオフホワイト */
+            --bg-color: #fdfafb; /* 春の桜色オフホワイト */
             --surface-color: #ffffff;
             --accent-pink: #ffb7c5;
             --accent-mint: #b2e2f2;
@@ -28,24 +28,23 @@
         .subtitle { font-size: 0.85rem; color: var(--line-green); font-weight: bold; margin-top: 0.5rem; letter-spacing: 2px; }
         .container { max-width: 800px; margin: 0 auto; padding: 0 20px 40px; }
         
-        /* 共通セクション */
         section { margin-bottom: 3.5rem; }
         h2 { font-family: 'Montserrat', 'Noto Sans JP', sans-serif; font-weight: 900; font-size: 1.4rem; margin-bottom: 1.2rem; padding-left: 10px; border-left: 5px solid var(--accent-pink); display: flex; align-items: center; gap: 10px; color: #444; }
         h2 span { color: var(--text-muted); font-size: 1rem; }
 
         .chart-container { background-color: var(--surface-color); border-radius: 20px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; border: 1px solid #f0f0f0; }
 
-        /* 掲示板（スクロール） */
+        /* 掲示板 */
         .comment-board { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
         .comment-board::-webkit-scrollbar { width: 4px; }
         .comment-board::-webkit-scrollbar-thumb { background: var(--accent-pink); border-radius: 10px; }
-        .live-comment-item { padding: 15px; background: #fcfcfc; border-radius: 12px; font-size: 0.95rem; border: 1px solid #eee; color: #444; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .live-comment-item { padding: 15px; background: #fcfcfc; border-radius: 12px; font-size: 0.95rem; border: 1px solid #eee; color: #444; }
 
         /* ピックアップコメント */
-        .comment-card { background-color: var(--surface-color); border-radius: 15px; padding: 1.5rem; border: 1px solid #eee; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .comment-card { background-color: var(--surface-color); border-radius: 15px; padding: 1.5rem; border: 1px solid #eee; margin-bottom: 1rem; }
         .comment-quote { font-weight: 700; font-size: 1.05rem; color: #333; }
 
-        /* アーティストカード */
+        /* アーティスト紹介 */
         .band-card { background-color: var(--surface-color); border-radius: 20px; overflow: hidden; margin-bottom: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #eee; }
         .band-image { width: 100%; height: 240px; object-fit: cover; border-bottom: 3px solid var(--accent-pink); }
         .band-content { padding: 1.5rem; }
@@ -54,12 +53,12 @@
         .band-description { font-size: 0.9rem; color: #555; margin-bottom: 1.5rem; }
         
         .sns-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
-        .sns-btn { display: inline-block; padding: 10px; border-radius: 10px; font-size: 0.85rem; font-weight: 700; text-decoration: none; color: #fff; text-align: center; flex: 1; transition: opacity 0.2s; }
+        .sns-btn { display: inline-block; padding: 10px; border-radius: 10px; font-size: 0.85rem; font-weight: 700; text-decoration: none; color: #fff; text-align: center; flex: 1; }
         .sns-insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .sns-x { background-color: #000; }
         .sns-yt { background-color: #ff0000; }
 
-        /* アンケートボタン */
+        /* ボタン */
         .btn-green { display: inline-block; background-color: var(--line-green); color: #fff; text-decoration: none; font-weight: bold; padding: 16px 32px; border-radius: 40px; margin-top: 10px; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,176,76,0.2); }
         .final-action { text-align: center; margin-top: 4rem; padding: 3rem 2rem; background-color: #fff; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
     </style>
@@ -186,7 +185,7 @@
             header: true,
             complete: function(results) { 
                 const fields = results.meta.fields;
-                renderComments(results.data, fields[10]); // K列
+                renderComments(results.data, fields[10]); 
                 drawCharts(results.data, fields); 
             }
         });
@@ -204,9 +203,9 @@
             "花形のサックス": 0,
             "高音のトランペット": 0,
             "渋いトロンボーン": 0,
-            "渋くないトロンボーン": 0,
             "リズムを支えるリズム隊": 0,
-            "裏方（PAとか）": 0
+            "渋くないトロンボーン (自由回答)": 0,
+            "裏方（PAとか） (自由回答)": 0
         };
         const othersCount = {};
 
@@ -221,21 +220,33 @@
                 });
             }
             if (iCol) {
-                const raw = (row[iCol] || "");
-                if (raw === "渋くないトロンボーン") groupCount["渋くないトロンボーン"]++;
-                else if (raw.includes("裏方") || raw.includes("PA") || raw.includes("pa")) groupCount["裏方（PAとか）"]++;
-                else if (raw.includes("サックス")) groupCount["花形のサックス"]++;
-                else if (raw.includes("トランペット")) groupCount["高音のトランペット"]++;
-                else if (raw.includes("トロンボーン")) groupCount["渋いトロンボーン"]++;
-                else if (raw.match(/リズム隊|ピアノ|ベース|ドラム|ギター|打楽器/)) groupCount["リズムを支えるリズム隊"]++;
-                else if (raw.trim()) {
-                    const clean = raw.trim();
-                    othersCount[clean] = (othersCount[clean] || 0) + 1;
+                const raw = (row[iCol] || "").trim();
+                // 優先判定ロジック
+                if (raw === "渋くないトロンボーン") {
+                    groupCount["渋くないトロンボーン (自由回答)"]++;
+                } 
+                else if (raw.includes("裏方") || raw.includes("PA") || raw.includes("pa")) {
+                    groupCount["裏方（PAとか） (自由回答)"]++;
+                } 
+                else if (raw.includes("サックス")) {
+                    groupCount["花形のサックス"]++;
+                } 
+                else if (raw.includes("トランペット")) {
+                    groupCount["高音のトランペット"]++;
+                } 
+                else if (raw.includes("トロンボーン")) {
+                    groupCount["渋いトロンボーン"]++;
+                } 
+                else if (raw.match(/リズム隊|ピアノ|ベース|ドラム|ギター|打楽器/)) {
+                    groupCount["リズムを支えるリズム隊"]++;
+                } 
+                else if (raw) {
+                    othersCount[raw] = (othersCount[raw] || 0) + 1;
                 }
             }
         });
 
-        // Roots Chart (Doughnut)
+        // Roots
         new Chart(document.getElementById('rootsChart').getContext('2d'), {
             type: 'doughnut',
             data: {
@@ -249,11 +260,20 @@
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
         });
 
-        // Instruments Chart (Horizontal Bar)
-        const labels = Object.keys(groupCount).filter(k => groupCount[k] > 0);
+        // Instruments - 指定順序で並べる
+        const order = [
+            "花形のサックス", 
+            "高音のトランペット", 
+            "渋いトロンボーン", 
+            "リズムを支えるリズム隊", 
+            "渋くないトロンボーン (自由回答)", 
+            "裏方（PAとか） (自由回答)"
+        ];
+        
+        const labels = order.filter(k => groupCount[k] > 0);
         const counts = labels.map(k => groupCount[k]);
         
-        // 「その他」の頻出回答を追加
+        // その他の自由回答
         Object.keys(othersCount).sort((a,b)=>othersCount[b]-othersCount[a]).slice(0, 2).forEach(k => {
             labels.push(k);
             counts.push(othersCount[k]);
@@ -265,7 +285,7 @@
                 labels: labels,
                 datasets: [{ 
                     data: counts, 
-                    backgroundColor: ['#ffb7c5', '#b2e2f2', '#98fb98', '#fff9aa', '#dcd3ff', '#ffdab9', '#e0e0e0'],
+                    backgroundColor: ['#ffb7c5', '#b2e2f2', '#98fb98', '#fff9aa', '#ffdab9', '#dcd3ff', '#e0e0e0'],
                     borderRadius: 8
                 }]
             },
@@ -275,7 +295,7 @@
                 maintainAspectRatio: false,
                 scales: { 
                     x: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { stepSize: 1 } },
-                    y: { grid: { display: false }, ticks: { font: { size: 11, weight: '700' } } }
+                    y: { grid: { display: false }, ticks: { font: { size: 10, weight: '700' } } }
                 },
                 plugins: { legend: { display: false } }
             }
