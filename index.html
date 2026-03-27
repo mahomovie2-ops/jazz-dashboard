@@ -34,23 +34,24 @@
 
         .chart-container { background-color: var(--surface-color); border-radius: 20px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; border: 1px solid #f0f0f0; }
 
-        /* 掲示板（スクロール）共通 */
+        /* 掲示板 */
         .comment-board { max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
         .comment-board::-webkit-scrollbar { width: 4px; }
         .comment-board::-webkit-scrollbar-thumb { background: var(--accent-pink); border-radius: 10px; }
-        .live-comment-item { padding: 15px; background: #fcfcfc; border-radius: 12px; font-size: 0.95rem; border: 1px solid #eee; color: #444; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .live-comment-item { padding: 15px; background: #fcfcfc; border-radius: 12px; font-size: 0.95rem; border: 1px solid #eee; color: #444; }
 
-        /* ピックアップコメント用カードデザイン */
+        /* ピックアップコメント & 運営レスポンス */
         .comment-card { background-color: var(--surface-color); border-radius: 15px; padding: 1.5rem; border: 1px solid #eee; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .comment-quote { font-weight: 700; font-size: 1.05rem; color: #333; margin-bottom: 8px; }
         .comment-reply { font-size: 0.85rem; color: var(--line-green); font-weight: 700; border-top: 1px dashed #ddd; padding-top: 8px; display: flex; align-items: flex-start; gap: 6px; }
 
-        /* バンドカード */
+        /* アーティスト紹介 */
         .band-card { background-color: var(--surface-color); border-radius: 20px; overflow: hidden; margin-bottom: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #eee; }
         .band-image { width: 100%; height: 240px; object-fit: cover; border-bottom: 3px solid var(--accent-pink); }
         .band-content { padding: 1.5rem; }
         .band-name { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; margin: 0; color: #222; }
         .band-catchphrase { color: var(--line-green); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.8rem; }
+        .band-description { font-size: 0.9rem; color: #555; margin-bottom: 1.5rem; }
         
         .sns-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
         .sns-btn { display: inline-block; padding: 10px; border-radius: 10px; font-size: 0.85rem; font-weight: 700; text-decoration: none; color: #fff; text-align: center; flex: 1; }
@@ -117,26 +118,27 @@
         <h2><span>05.</span> PICK UP VOICES</h2>
         <div class="comment-card">
             <div class="comment-quote">「自分はクラシックが専門なので、ビッグバンドだと普段どんなことを意識してアンサンブルしているのか気になります！」</div>
-            <div class="comment-reply"><span>💡</span>ビッグバンドならではの「一体感」の秘訣、ステージで触れるかもしれません！</div>
+            <div class="comment-reply"><span>💡</span>クラシックとはまた違う、ビッグバンド特有の『対話』と『爆発力』。その秘密を演奏でお見せします！</div>
         </div>
         <div class="comment-card">
             <div class="comment-quote">「今夜はから騒ぎ／東京事変 バンドでやるとオシャレ」「椎名林檎の曲！」</div>
-            <div class="comment-reply"><span>🎸</span>事変のオシャレなアレンジ、ビッグバンドの華やかさに絶対合いますよね！</div>
+            <div class="comment-reply"><span>🎸</span>事変や林檎さんの艶やかさはビッグバンドと相性抜群。ホーン隊が唸るアレンジ、いつか挑戦したいですね！</div>
         </div>
         <div class="comment-card">
             <div class="comment-quote">「生音で聴きながら飲むお酒、JAZZがいい。ドラムソロが楽しみ！」</div>
-            <div class="comment-reply"><span>🥂</span>生音×お酒、そしてソロの熱狂。これこそがビッグバンドライブの醍醐味です！</div>
+            <div class="comment-reply"><span>🥂</span>最高の生音とお酒、そして心臓に響くドラムソロ！これぞライブでしか味わえない贅沢な楽しみ方です。</div>
         </div>
     </section>
 
     <section>
         <h2><span>06.</span> ARTISTS</h2>
+        
         <div class="band-card">
             <img src="bighollow.JPG" class="band-image">
             <div class="band-content">
                 <h3 class="band-name">Big Hollow Band</h3>
                 <div class="band-catchphrase">徐々に都心から脱出バンド</div>
-                <p style="font-size: 0.9rem; color: #555;">昭和大学MASと筑波大学Neopolis出身者を中心として結成された本気のファンク＆コンテンポラリーバンド！</p>
+                <p class="band-description">昭和大学MASと筑波大学Neopolis出身者を中心として、2022年にその場のノリと勢いで結成した社会人ビッグバンドです。本日は本気のファンクジャズとコンテンポラリージャズを演奏するのでお楽しみください！</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/big.hollow.band" target="_blank" class="sns-btn sns-insta">Instagram</a>
                     <a href="https://x.com/kubo_ban1210" target="_blank" class="sns-btn sns-x">X</a>
@@ -144,12 +146,13 @@
                 </div>
             </div>
         </div>
+
         <div class="band-card">
             <img src="eagle.JPG" class="band-image">
             <div class="band-content">
                 <h3 class="band-name">Eagle Jazztech Orchestra</h3>
                 <div class="band-catchphrase">王道を往く、爽快スウィング。</div>
-                <p style="font-size: 0.9rem; color: #555;">上智大学をルーツとし、突き抜けるような爽快スウィングをお届けします！</p>
+                <p class="band-description">上智大学をルーツとし、学生時代の縁やその後の出会いで結集した社会人ビッグバンドです。ロブ・パートンのナンバーや心躍るボーカル曲を交え、突き抜けるような爽快スウィングをお届けします！</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/eagle_jazztech" target="_blank" class="sns-btn sns-insta">Instagram</a>
                     <a href="https://x.com/eagle_jazztech" target="_blank" class="sns-btn sns-x">X</a>
@@ -157,12 +160,13 @@
                 </div>
             </div>
         </div>
+
         <div class="band-card">
             <img src="platanus.JPG" class="band-image">
             <div class="band-content">
                 <h3 class="band-name">Platanus Jazz Orchestra</h3>
-                <div class="band-catchphrase">Unraveling the Boundaries</div>
-                <p style="font-size: 0.9rem; color: #555;">立教大学出身者を中心に結成。音を通して、聴く人と奏でる人の境界がほどける瞬間を大切にしています。</p>
+                <div class="band-catchphrase">Unraveling the Boundaries Between Us</div>
+                <p class="band-description">立教大学出身者を中心に結成されたビッグバンドです。伝統を重んじながらジャズの可能性を模索し、音を通して、聴く人と奏でる人の境界がほどける瞬間を大切にしています。</p>
                 <div class="sns-buttons">
                     <a href="https://www.instagram.com/platanusjazz" target="_blank" class="sns-btn sns-insta">Instagram</a>
                     <a href="https://x.com/platanusjazz" target="_blank" class="sns-btn sns-x">X</a>
@@ -173,7 +177,7 @@
     </section>
 
     <div class="final-action">
-        <h3>本日はご来場ありがとうございます！</h3>
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 900; margin-bottom:10px;">本日はご来場ありがとうございます！</h3>
         <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px;">皆様の感想が今後の活動の糧となります。ぜひ一言お聞かせください！</p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfN-IuFpDsh87771z5t5N59r9Ff5T9-A4g0pC_YQ3E6o_QeLw/viewform" target="_blank" class="btn-green">アンケートに回答する</a>
     </div>
@@ -182,23 +186,22 @@
 <script>
     Chart.defaults.color = '#555';
     Chart.defaults.font.family = "'Montserrat', 'Noto Sans JP', sans-serif";
-    const SHEET_ID = '15XGG51-_dWPAYvJjmBOEF1uWkHFgvATQBhREr8dN4-M';
-    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
+    const CSV_URL = `https://docs.google.com/spreadsheets/d/15XGG51-_dWPAYvJjmBOEF1uWkHFgvATQBhREr8dN4-M/export?format=csv`;
 
     window.onload = function() {
         Papa.parse(CSV_URL, {
             download: true, header: true,
             complete: function(results) { 
-                const fields = results.meta.fields;
-                // 正確な列参照：H列(7):経験 / I列(8):希望 / K列(10):魅力
-                renderBoard(results.data, fields[10], 'love-board');
-                renderBoard(results.data, fields[7], 'experience-board');
-                drawCharts(results.data, fields); 
+                const f = results.meta.fields;
+                // K列(10): 魅力 / H列(7): 経験 掲示板表示
+                renderB(results.data, f[10], 'love-board');
+                renderB(results.data, f[7], 'experience-board');
+                drawCharts(results.data, f); 
             }
         });
     };
 
-    function renderBoard(data, col, targetId) {
+    function renderB(data, col, targetId) {
         const container = document.getElementById(targetId);
         const comments = data.map(row => row[col]).filter(t => t && t.trim()).reverse().slice(0, 20);
         container.innerHTML = comments.length === 0 ? '<div class="live-comment-item">まだメッセージがありません</div>' : comments.map(t => `<div class="live-comment-item">“ ${t} ”</div>`).join('');
@@ -212,20 +215,18 @@
         };
 
         data.forEach(row => {
-            // 02. ルーツ（列名検索）
             const rCol = fields.find(h => h.includes('ルーツ'));
+            const iCol = fields[8]; // I列(Index 8)固定
+
             if (rCol) {
                 (row[rCol] || "").split(/[、,]/).forEach(i => {
                     const clean = i.trim();
                     if(clean) rootsCount[clean] = (rootsCount[clean] || 0) + 1;
                 });
             }
-
-            // 03. 希望楽器（I列: Index 8 厳選ロジック）
-            const iCol = fields[8];
             if (iCol) {
                 const raw = (row[iCol] || "").trim();
-                // 優先順位をつけてカウント（クリーン化）
+                // 優先判定ロジックでクリーンなグラフを作成
                 if (raw === "渋くないトロンボーン") groupCount["渋くないトロンボーン (自由回答)"]++;
                 else if (raw.includes("裏方") || raw.includes("PA")) groupCount["裏方（PAとか） (自由回答)"]++;
                 else if (raw.includes("サックス")) groupCount["花形のサックス"]++;
@@ -235,7 +236,7 @@
             }
         });
 
-        // Roots Chart
+        // Roots (Doughnut)
         new Chart(document.getElementById('rootsChart').getContext('2d'), {
             type: 'doughnut',
             data: {
@@ -249,7 +250,7 @@
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
         });
 
-        // Instruments Chart (Fixed Order)
+        // Instruments (Horizontal Bar) - 並び順固定
         const order = ["花形のサックス", "高音のトランペット", "渋いトロンボーン", "リズムを支えるリズム隊", "渋くないトロンボーン (自由回答)", "裏方（PAとか） (自由回答)"];
         new Chart(document.getElementById('instrumentsChart').getContext('2d'), {
             type: 'bar',
