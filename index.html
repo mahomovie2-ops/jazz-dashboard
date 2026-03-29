@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fdfafb; /* 春の桜色オフホワイト */
+            --bg-color: #fdfafb;
             --surface-color: #ffffff;
             --accent-pink: #ffb7c5;
             --accent-mint: #b2e2f2;
@@ -31,20 +31,17 @@
         section { margin-bottom: 3.5rem; }
         h2 { font-family: 'Montserrat', 'Noto Sans JP', sans-serif; font-weight: 900; font-size: 1.4rem; margin-bottom: 1.2rem; padding-left: 10px; border-left: 5px solid var(--accent-pink); display: flex; align-items: center; gap: 10px; color: #444; }
 
-        .chart-container { background-color: var(--surface-color); border-radius: 20px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
+        .chart-container { background-color: var(--surface-color); border-radius: 20px; padding: 1.5rem; min-height: 240px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; border: 1px solid #f0f0f0; }
 
-        /* 掲示板 */
         .comment-board { max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
         .comment-board::-webkit-scrollbar { width: 4px; }
         .comment-board::-webkit-scrollbar-thumb { background: var(--accent-pink); border-radius: 10px; }
         .live-comment-item { padding: 15px; background: #fcfcfc; border-radius: 12px; font-size: 0.95rem; border: 1px solid #eee; color: #444; }
 
-        /* ピックアップコメント & 運営レスポンス */
         .comment-card { background-color: var(--surface-color); border-radius: 15px; padding: 1.5rem; border: 1px solid #eee; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .comment-quote { font-weight: 700; font-size: 1.05rem; color: #333; margin-bottom: 8px; }
         .comment-reply { font-size: 0.85rem; color: var(--line-green); font-weight: 700; border-top: 1px dashed #ddd; padding-top: 8px; display: flex; align-items: flex-start; gap: 6px; }
 
-        /* アーティスト紹介 */
         .band-card { background-color: var(--surface-color); border-radius: 20px; overflow: hidden; margin-bottom: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #eee; }
         .band-image { width: 100%; height: 240px; object-fit: cover; border-bottom: 3px solid var(--accent-pink); }
         .band-content { padding: 1.5rem; }
@@ -58,12 +55,11 @@
         .sns-x { background-color: #000; }
         .sns-yt { background-color: #ff0000; }
 
-        /* 1行に収めるためのヘッダー最適化 */
         .one-line-header { 
             white-space: nowrap; 
             overflow: hidden; 
             text-overflow: ellipsis; 
-            font-size: 1.15rem !important; /* スマホで1行に収める絶妙なサイズ */
+            font-size: 1.15rem !important;
             letter-spacing: -0.5px;
             margin: 0 !important;
             padding: 0 5px;
@@ -132,17 +128,16 @@
         </div>
         <div class="comment-card">
             <div class="comment-quote">「今夜はから騒ぎ／東京事変 バンドでやるとオシャレ」「椎名林檎の曲！」</div>
-            <div class="comment-reply"><span>🎸</span>事変や林檎さんの艶やかさはビッグバンドと相性抜群。ホーン隊が唸るアレンジ、いつか挑戦したいですね！</div>
+            <div class="comment-reply"><span>🎸</span>事変や林檎さんの艶やかさはビッグバンドと相性抜群。いつか挑戦したいですね！</div>
         </div>
         <div class="comment-card">
             <div class="comment-quote">「生音で聴きながら飲むお酒、JAZZがいい。ドラムソロが楽しみ！」</div>
-            <div class="comment-reply"><span>🥂</span>最高の生音とお酒、そして心臓に響くドラムソロ！これぞライブでしか味わえない贅沢な楽しみ方です。</div>
+            <div class="comment-reply"><span>🥂</span>最高の生音とお酒、そして心臓に響くドラムソロ！これぞライブの醍醐味です！</div>
         </div>
     </section>
 
     <section>
         <h2><span>06.</span> ARTISTS</h2>
-        
         <div class="band-card">
             <img src="bighollow.JPG" class="band-image">
             <div class="band-content">
@@ -156,7 +151,6 @@
                 </div>
             </div>
         </div>
-
         <div class="band-card">
             <img src="eagle.JPG" class="band-image">
             <div class="band-content">
@@ -170,7 +164,6 @@
                 </div>
             </div>
         </div>
-
         <div class="band-card">
             <img src="platanus.JPG" class="band-image">
             <div class="band-content">
@@ -189,7 +182,7 @@
     <div class="final-action">
         <h3 class="one-line-header" style="font-family: 'Montserrat', sans-serif; font-weight: 900; color: #222;">本日はご来場ありがとうございます！</h3>
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px; margin-bottom: 20px;">皆様の感想が今後の活動の糧となります。<br>ぜひ一言お聞かせください！</p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfN-IuFpDsh87771z5t5N59r9Ff5T9-A4g0pC_YQ3E6o_QeLw/viewform" target="_blank" class="btn-green">アンケートに回答する</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSefnUgqKKxscmsfA8Pm-J6RLBK1fDpGUO08UVnOi7lyHxD42A/viewform" target="_blank" class="btn-green">アンケートに回答する</a>
     </div>
 </div>
 
@@ -203,7 +196,6 @@
             download: true, header: true,
             complete: function(results) { 
                 const f = results.meta.fields;
-                // K列(10): 魅力 / H列(7): 経験
                 renderB(results.data, f[10], 'love-board');
                 renderB(results.data, f[7], 'experience-board');
                 drawCharts(results.data, f); 
@@ -223,7 +215,7 @@
 
         data.forEach(row => {
             const rCol = fields.find(h => h.includes('ルーツ'));
-            const iCol = fields[8]; // I列(Index 8)固定
+            const iCol = fields[8];
             if (rCol) {
                 (row[rCol] || "").split(/[、,]/).forEach(i => { const clean = i.trim(); if(clean) rootsCount[clean] = (rootsCount[clean] || 0) + 1; });
             }
@@ -252,6 +244,7 @@
                 indexAxis: 'y', 
                 responsive: true, 
                 maintainAspectRatio: false, 
+                layout: { padding: { left: 10 } },
                 scales: { 
                     x: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { stepSize: 1 } }, 
                     y: { grid: { display: false }, ticks: { font: { size: 8, weight: '700' } } } 
